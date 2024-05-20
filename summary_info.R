@@ -1,47 +1,12 @@
----
-title: "Final Project"
-output: html_document
-date: "2024-05-17"
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
 # Load the data
-```{r}
 data <- read_csv("titles.csv")
 data
-```
 
 # Load necessary libraries
-```{r}
 library(dplyr)
 library(tidyverse)
-```
 
 # Define the summary information function
-```{r}
 summary_info <- function(data) {
   info <- list()
   
@@ -89,4 +54,3 @@ summary_info <- function(data) {
 # Example usage assuming 'data' is your dataframe
 summary <- summary_info(data)
 print(summary)
-```
