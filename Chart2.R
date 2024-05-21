@@ -20,5 +20,3 @@ line_chart <- ggplot(championships_over_time, aes(x = year, y = total_championsh
 print(line_chart)
 # Save the plot
 ggsave("line_chart.png", plot = line_chart, width = 8, height = 6)
-
-This line chart shows the trend of championships won over the years, illustrating how the number of championships has changed over time. A notable observation I can make is that there were a total of two championships in 1870 and 9 total championships in 2018.
