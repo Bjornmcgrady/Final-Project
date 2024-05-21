@@ -34,5 +34,3 @@ comparison_chart <- ggplot(comparison_data, aes(x = reorder(City, -total_champio
 print(comparison_chart)
 # Save the plot
 ggsave("comparison_chart.png", plot = comparison_chart, width = 8, height = 6)
-
-This comparison chart shows the number of championships versus the number of runner-up finishes for each city. The purpose of this chart is to compare the competitive performance of cities beyond just championships, highlighting frequent near-wins. Notable observations I can make are that some cities have a high number of runner-up finishes compared to championships, indicating frequent near-wins. The comparison helps understand the competitiveness of cities beyond just championships.
