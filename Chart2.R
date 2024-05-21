@@ -1,4 +1,3 @@
-```{r}
 library(ggplot2)
 library(dplyr)
 
@@ -20,6 +19,3 @@ line_chart <- ggplot(championships_over_time, aes(x = year, y = total_championsh
 print(line_chart)
 # Save the plot
 ggsave("line_chart.png", plot = line_chart, width = 8, height = 6)
-```
-
-
