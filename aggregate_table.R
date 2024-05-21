@@ -14,3 +14,5 @@ colnames(aggregate_table) <- c("City", "Sport", "Total Championships")
 
 # Display the table
 print(aggregate_table)
+
+I included this table to give insights as to which sports are winning the most championships within each city. This table revealed that Baseball championships in New York was the highest amount of championships won from a single sport within any city apart of the U.S.
