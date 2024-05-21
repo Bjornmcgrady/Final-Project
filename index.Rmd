@@ -132,6 +132,7 @@ print(line_chart)
 # Save the plot
 ggsave("line_chart.png", plot = line_chart, width = 8, height = 6)
 ```
+This line chart shows the trend of championships won over the years, illustrating how the number of championships has changed over time. A notable observation I can make is that there were a total of two championships in 1870 and 9 total championships in 2018.
 
 ```{r}
 # Load necessary library
@@ -171,6 +172,7 @@ print(comparison_chart)
 # Save the plot
 ggsave("comparison_chart.png", plot = comparison_chart, width = 8, height = 6)
 ```
+This comparison chart shows the number of championships versus the number of runner-up finishes for each city. The purpose of this chart is to compare the competitive performance of cities beyond just championships, highlighting frequent near-wins. Notable observations I can make are that some cities have a high number of runner-up finishes compared to championships, indicating frequent near-wins. The comparison helps understand the competitiveness of cities beyond just championships.
 
 ```{r}
 # Load necessary library
@@ -193,3 +195,6 @@ print(bar_chart)
 # Save the plot
 ggsave("bar_chart.png", plot = bar_chart, width = 8, height = 6)
 ```
+This bar chart shows the total number of championships won by different cities. The purpose of this chart is to visualize which cities have the highest number of sports championships, indicating their dominance in various sports. Notable observations I can make are that Los Angeles has the highest number of championships and other cities like New York and Boston also have significant championship counts.
+
+The analysis of the "Winningest Cities in Sports" dataset reveals several key insights into the distribution of sports championships across various U.S. cities. Los Angeles emerges as the city with the most championships, boasting a total of 74 titles. On average, each city has won approximately 8.16 championships. The data spans from the 1870s to 2018, with the earliest recorded championships being just 2 in 1870, and a peak of 9 championships in 2018. New York leads in the number of championships won in a single sport, dominating Major League Baseball (MLB). These findings highlight the historical dominance of specific cities and sports, offering valuable insights for sports franchises, city planners, and enthusiasts.
