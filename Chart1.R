@@ -1,4 +1,3 @@
-```{r}
 # Load necessary library
 library(ggplot2)
 library(dplyr)
@@ -35,4 +34,3 @@ comparison_chart <- ggplot(comparison_data, aes(x = reorder(City, -total_champio
 print(comparison_chart)
 # Save the plot
 ggsave("comparison_chart.png", plot = comparison_chart, width = 8, height = 6)
-```
