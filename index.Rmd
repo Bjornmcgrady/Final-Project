@@ -8,26 +8,6 @@ date: "2024-05-17"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
 # Load the data
 ```{r}
 data <- read_csv("titles.csv")
@@ -41,160 +21,26 @@ library(tidyverse)
 ```
 
 # Define the summary information function
-```{r}
-summary_info <- function(data) {
-  info <- list()
-  
-  # Number of observations (rows) in the dataset
-  info$num_observations <- nrow(data)
-  
-  # Number of features (columns) in the dataset
-  info$num_features <- ncol(data)
-  
-  # City with the highest number of championships
-  info$city_with_most_championships <- data %>%
-    group_by(winner_metro) %>%
-    summarise(total_championships = n()) %>%
-    arrange(desc(total_championships)) %>%
-    slice(1) %>%
-    pull(winner_metro)
-  
-  # Total number of championships for the city with the highest number
-  info$total_championships_for_top_city <- data %>%
-    group_by(winner_metro) %>%
-    summarise(total_championships = n()) %>%
-    arrange(desc(total_championships)) %>%
-    slice(1) %>%
-    pull(total_championships)
-  
-  # Average number of championships per city
-  info$avg_championships_per_city <- data %>%
-    group_by(winner_metro) %>%
-    summarise(total_championships = n()) %>%
-    summarise(avg_championships = mean(total_championships)) %>%
-    pull(avg_championships)
-  
-  # Total number of different sports represented in the dataset
-  info$num_sports <- data %>%
-    select(sport) %>%
-    distinct() %>%
-    nrow()
-  
-  # Time range of the championships data
-  info$time_range <- range(data$year)
-  
-  return(info)
-}
 
-# Example usage assuming 'data' is your dataframe
-summary <- summary_info(data)
-print(summary)
+```{r}
+source("summary_info.R")
 ```
 ```{r}
-# Load necessary library
-library(dplyr)
-
-# Aggregate Table Script
-# Group by city and sport to show the total number of championships won by each city in each sport
-aggregate_table <- data %>%
-  group_by(winner_metro, sport) %>%
-  summarise(total_championships = n()) %>%
-  arrange(desc(total_championships)) %>%
-  mutate(total_championships = round(total_championships, 2)) # Round the total championships
-
-# Rename columns for better readability
-colnames(aggregate_table) <- c("City", "Sport", "Total Championships")
-
-# Display the table
-print(aggregate_table)
+source("aggregate_table.R")
 ```
 I included this table to give insights as to which sports are winning the most championships within each city. This table revealed that Baseball championships in New York was the highest amount of championships won from a single sport within any city apart of the U.S.
-
 ```{r}
-library(ggplot2)
-library(dplyr)
-
-# Read the dataset
-data <- read.csv("titles.csv")
-
-# Create a summary dataset for championships over time
-championships_over_time <- data %>%
-  group_by(year) %>%
-  summarise(total_championships = n())
-
-# Create Line Chart
-line_chart <- ggplot(championships_over_time, aes(x = year, y = total_championships)) +
-  geom_line(color = "blue") +
-  labs(title = "Championships Over Time",
-       x = "Year",
-       y = "Total Championships") +
-  theme_minimal()
-print(line_chart)
-# Save the plot
-ggsave("line_chart.png", plot = line_chart, width = 8, height = 6)
+source("Chart2.R")
 ```
 This line chart shows the trend of championships won over the years, illustrating how the number of championships has changed over time. A notable observation I can make is that there were a total of two championships in 1870 and 9 total championships in 2018.
 
 ```{r}
-# Load necessary library
-library(ggplot2)
-library(dplyr)
-
-# Read the dataset
-data <- read.csv("titles.csv")
-
-# Calculate runner-up statistics
-runner_up_stats <- data %>%
-  group_by(runner_up_metro) %>%
-  summarise(total_runner_up = n())
-
-# Calculate winner statistics
-city_championships <- data %>%
-  group_by(winner_metro) %>%
-  summarise(total_championships = n())
-
-# Merge winner and runner-up statistics
-comparison_data <- full_join(city_championships, runner_up_stats, by = c("winner_metro" = "runner_up_metro"))
-comparison_data <- comparison_data %>%
-  replace_na(list(total_championships = 0, total_runner_up = 0)) %>%
-  rename(City = winner_metro)
-
-# Create Comparison Chart
-comparison_chart <- ggplot(comparison_data, aes(x = reorder(City, -total_championships))) +
-  geom_bar(aes(y = total_championships, fill = "Championships"), stat = "identity") +
-  geom_bar(aes(y = total_runner_up, fill = "Runner-Up"), stat = "identity", alpha = 0.5) +
-  labs(title = "Championships vs Runner-Up Statistics",
-       x = "City",
-       y = "Count") +
-  scale_fill_manual(values = c("Championships" = "blue", "Runner-Up" = "red")) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-print(comparison_chart)
-# Save the plot
-ggsave("comparison_chart.png", plot = comparison_chart, width = 8, height = 6)
+source("Chart1.R")
 ```
 This comparison chart shows the number of championships versus the number of runner-up finishes for each city. The purpose of this chart is to compare the competitive performance of cities beyond just championships, highlighting frequent near-wins. Notable observations I can make are that some cities have a high number of runner-up finishes compared to championships, indicating frequent near-wins. The comparison helps understand the competitiveness of cities beyond just championships.
 
 ```{r}
-# Load necessary library
-library(ggplot2)
-library(dplyr)
-
-# Read the dataset
-data <- read.csv("titles.csv")
-
-# Create Bar Chart
-bar_chart <- ggplot(data, aes(x = reorder(winner_metro, -table(winner_metro)[winner_metro]))) +
-  geom_bar(fill = "blue") +
-  labs(title = "Total Championships by City",
-       x = "City",
-       y = "Total Championships") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-print(bar_chart)
-# Save the plot
-ggsave("bar_chart.png", plot = bar_chart, width = 8, height = 6)
+source("Chart3.R")
 ```
 This bar chart shows the total number of championships won by different cities. The purpose of this chart is to visualize which cities have the highest number of sports championships, indicating their dominance in various sports. Notable observations I can make are that Los Angeles has the highest number of championships and other cities like New York and Boston also have significant championship counts.
 
