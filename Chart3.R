@@ -1,4 +1,3 @@
-```{r}
 # Load necessary library
 library(ggplot2)
 library(dplyr)
@@ -18,4 +17,3 @@ bar_chart <- ggplot(data, aes(x = reorder(winner_metro, -table(winner_metro)[win
 print(bar_chart)
 # Save the plot
 ggsave("bar_chart.png", plot = bar_chart, width = 8, height = 6)
-```
