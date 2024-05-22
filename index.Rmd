@@ -49,6 +49,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load the data
 ```{r}
+library(tidyverse)
 data <- read_csv("titles.csv")
 data
 ```
